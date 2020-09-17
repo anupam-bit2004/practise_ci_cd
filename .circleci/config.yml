@@ -12,12 +12,12 @@ jobs:
   print_hello:
     executor: my-executor
     steps:
-      -run: echo "hello"
+      - run: echo "hello"
 
   print_world:
     executor: my-executor
     steps:
-      -run: echo "world"
+      - run: echo "world"
 
 # Orchestrate or schedule a set of jobs
 workflows:
