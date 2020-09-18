@@ -20,9 +20,10 @@ jobs:
   print_my_name:
     executor: my-executor
     steps:
+      - checkout
       - run: 
           name: "print my name"
-          command: echo $name
+          command: echo $MY_ENV_VAR
 
 
 
