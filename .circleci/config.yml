@@ -29,7 +29,7 @@ jobs:
     executor: my-executor
     steps:
       - run:
-          command: echo "hello Anupam" > /output.txt
+          command: echo "hello Anupam" > output.txt
       - persist_to_workspace:    
           root: /
           paths:
@@ -41,7 +41,7 @@ jobs:
       - attach_workspace:
           at: /
       - run:
-          command: cat /output.txt    
+          command: cat output.txt    
 
 
 # Orchestrate or schedule a set of jobs
