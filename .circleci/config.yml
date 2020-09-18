@@ -25,6 +25,23 @@ jobs:
           name: "print my name"
           command: echo $MY_ENV_VAR
 
+  save_hello_world:
+    executor: my-executor
+    steps:
+      - run:
+          command: echo "hello Anupam" > /output.txt
+      - persist_to_workspace:    
+          root: /
+          paths:
+            - output.txt           
+
+  print_output_file:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: /
+      - run:
+          command: cat /output.txt    
 
 
 # Orchestrate or schedule a set of jobs
@@ -37,4 +54,8 @@ workflows:
       - print_world:
           requires:
             - print_hello
-      - print_my_name      
+      - print_my_name 
+      - save_hello_world
+      - print_output_file:
+          requires:
+            - save_hello_world  
