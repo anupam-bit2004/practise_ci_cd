@@ -17,6 +17,14 @@ jobs:
     steps:
       - run: echo world
 
+  print_my_name:
+    steps:
+      - run: 
+          name: "print my name"
+          command: echo $name
+
+
+
 # Orchestrate or schedule a set of jobs
 workflows:
   # Name the workflow "welcome"
