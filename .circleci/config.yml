@@ -31,7 +31,7 @@ jobs:
       - run:
           command: echo "hello Anupam" > ~/output.txt
       - persist_to_workspace:    
-          root: /
+          root: ~/
           paths:
             - output.txt           
 
@@ -39,7 +39,7 @@ jobs:
     executor: my-executor
     steps:
       - attach_workspace:
-          at: /
+          at: ~/
       - run:
           command: cat ~/output.txt    
 
