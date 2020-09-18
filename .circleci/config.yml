@@ -18,6 +18,7 @@ jobs:
       - run: echo world
 
   print_my_name:
+    executor: my-executor
     steps:
       - run: 
           name: "print my name"
