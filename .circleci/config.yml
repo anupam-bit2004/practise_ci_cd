@@ -15,7 +15,7 @@ jobs:
   print_my_pl_id:
     executor: my-executor
     steps:
-      - run: print_pipeline_id
+      - print_pipeline_id
 
   print_hello:
     executor: my-executor
