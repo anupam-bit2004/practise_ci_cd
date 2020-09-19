@@ -75,4 +75,5 @@ workflows:
           requires:
             - print_hello
       - print_my_name
-      - print_my_pl_id      
+      - print_my_pl_id
+      - print_test_failure      
