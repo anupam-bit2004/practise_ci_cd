@@ -17,6 +17,15 @@ jobs:
     steps:
       - print_pipeline_id
 
+  print_test_failure:
+    executor: my-executor
+    steps:
+      - run: return 1
+      - run:
+          name: on error 
+          command: echo "Hello Error!"
+          when: on_fail       
+
   print_hello:
     executor: my-executor
     steps:
