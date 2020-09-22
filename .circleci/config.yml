@@ -9,6 +9,11 @@ jobs:
       - run:
           name: Ensure backend infrastructure exist
           command: |
+            aws configure set aws_access_key_id \
+              $AWS_ACCESS_KEY_ID \
+              --profile default
+            pwd
+            ls -la
             aws cloudformation deploy \
               --template-file template.yml \
               --stack-name my-stack
