@@ -1,0 +1,79 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+commands:
+  print_pipeline_id:
+    steps:
+      - run: echo ${CIRCLE_WORKFLOW_ID}
+executors:
+  my-executor:
+    docker:
+      - image: circleci/node:13.8.0
+# Use a package of configuration called an orb.
+
+jobs:
+
+  print_my_pl_id:
+    executor: my-executor
+    steps:
+      - print_pipeline_id
+
+  print_test_failure:
+    executor: my-executor
+    steps:
+      - run: return 1
+      - run:
+          name: on error 
+          command: echo "Hello Error!"
+          when: on_fail       
+
+  print_hello:
+    executor: my-executor
+    steps:
+      - run: echo hello
+
+  print_world:
+    executor: my-executor
+    steps:
+      - run: echo world
+
+  print_my_name:
+    executor: my-executor
+    steps:
+      - checkout
+      - run: 
+          name: "print my name"
+          command: echo $MY_ENV_VAR
+
+  save_hello_world:
+    executor: my-executor
+    steps:
+      - run:
+          command: echo "hello Anupam" > ~/output.txt
+      - persist_to_workspace:    
+          root: ~/
+          paths:
+            - output.txt
+                         
+
+  print_output_file:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          command: cat ~/output.txt    
+
+
+# Orchestrate or schedule a set of jobs
+workflows:
+  # Name the workflow "welcome"
+  welcome:
+    # Run the welcome/run job in its own container
+    jobs:
+      - print_hello
+      - print_world:
+          requires:
+            - print_hello
+      - print_my_name
+      - print_my_pl_id
+      - print_test_failure      
