@@ -5,8 +5,10 @@ Resources:
     Properties:
       SecurityGroups:
        - !Ref InstanceSecurityGroup
-      KeyName: Anupam
       ImageId: ami-0cda377a1b884a1bc
+      KeyName: Anupam
+      InstanceType: t2.micro
+
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
