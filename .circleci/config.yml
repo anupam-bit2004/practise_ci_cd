@@ -18,7 +18,7 @@ jobs:
             cd .circleci
             pwd
             ls -la
-            ansible-playbook -i inventory.txt main-remote.yml
+            ansible-playbook -i inventory.txt main-remote.yml --private-key Anupam.pem
 
 workflows:
   my_workflow:
