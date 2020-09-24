@@ -15,6 +15,8 @@ jobs:
       - run:
           name: Configure server
           command: |
+            pwd
+            ls -la
             ansible-playbook -i inventory.txt main-remote.yml
 
 workflows:
