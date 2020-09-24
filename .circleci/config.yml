@@ -19,6 +19,7 @@ jobs:
             pwd
             ls -la
             ansible-playbook -i inventory.txt main-remote.yml --private-key Anupam.pem
+            yes
 
 workflows:
   my_workflow:
