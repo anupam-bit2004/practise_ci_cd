@@ -15,6 +15,7 @@ jobs:
       - run:
           name: Configure server
           command: |
+            cd .circleci
             pwd
             ls -la
             ansible-playbook -i inventory.txt main-remote.yml
