@@ -1,2 +1,2 @@
 [all]
-ec2-15-207-84-141.ap-south-1.compute.amazonaws.com
+ubuntu@15.207.84.141
