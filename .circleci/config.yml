@@ -15,9 +15,10 @@ jobs:
       - run:
           name: Configure server
           command: |
-            cd .circleci
+            cd .circleci      
             pwd
             ls -la
+            echo '15.207.84.141 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBF9ItHbCN+Jn4gwudfE5fBz6SOpwvVL/vf1e78kec4hz1X3Prp/ZfhXbE8abk5BoB+9nzJSluECNhwMwpEDxJGE=' >> ~/.ssh/known_hosts
             ansible-playbook -i inventory.txt main-remote.yml
             
 
