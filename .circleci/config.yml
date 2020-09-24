@@ -18,7 +18,6 @@ jobs:
             cd .circleci      
             pwd
             ls -la
-            /usr/local/bin/ssh username@15.207.84.141 -v
             ansible-playbook -i inventory.txt main-remote.yml
             
 
