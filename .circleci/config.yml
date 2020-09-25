@@ -13,6 +13,16 @@ jobs:
           command: |
             apk add --update ansible # install the dependencies needed for your playbook
       - run:
+          name: smoke tests
+          command: |
+            URL="https://blog.udacity.com/"
+            if curl -s --head ${URL}
+            then
+             return 0
+            else
+             return 1
+            fi          
+      - run:
           name: Configure server
           command: |
             cd .circleci      
@@ -25,3 +35,6 @@ workflows:
   my_workflow:
     jobs:
       - configure_infrastructure
+      - smoke_test:
+          requires:
+           - configure_infrastructure
