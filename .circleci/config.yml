@@ -13,6 +13,19 @@ jobs:
           command: |
             apk add --update ansible # install the dependencies needed for your playbook
       - run:
+          name: Configure server
+          command: |
+            cd .circleci      
+            pwd
+            ls -la
+            ansible-playbook -i inventory.txt main-remote.yml
+
+  smoke_tests:
+    docker:
+      - image: alpine:latest   
+    steps:
+      - run: apk add --update curl
+      - run:
           name: smoke tests
           command: |
             URL="https://blog.udacity.com/"
@@ -22,13 +35,6 @@ jobs:
             else
              return 1
             fi          
-      - run:
-          name: Configure server
-          command: |
-            cd .circleci      
-            pwd
-            ls -la
-            ansible-playbook -i inventory.txt main-remote.yml
             
 
 workflows:
