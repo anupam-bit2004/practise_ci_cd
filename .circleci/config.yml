@@ -20,7 +20,7 @@ jobs:
             ls -la
             ansible-playbook -i inventory.txt main-remote.yml
 
-  smoke_tests:
+  smoke_test:
     docker:
       - image: alpine:latest   
     steps:
