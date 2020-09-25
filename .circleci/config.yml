@@ -1,46 +1,29 @@
 version: 2.1
 
 jobs:
-  configure_infrastructure:
+  create_infrastructure:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: amazon/aws-cli
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints: [9b:e9:8c:65:51:fa:da:af:7e:39:ed:3d:4a:dd:bd:76"] # You can get this ID in the section where you registered the SSH Key
       - run:
-          name: Install dependencies
+          name: Ensure backend infrastructure exist
           command: |
-            apk add --update ansible # install the dependencies needed for your playbook
-      - run:
-          name: Configure server
-          command: |
-            cd .circleci      
+            aws configure set aws_access_key_id \
+              $AWS_ACCESS_KEY_ID \
+              --profile default
+            aws configure set aws_secret_access_key \
+              $AWS_SECRET_ACCESS_KEY \
+              --profile default
+            aws configure set region $AWS_DEFAULT_REGION \
+              --profile default    
+            cd .circleci
             pwd
             ls -la
-            ansible-playbook -i inventory.txt main-remote.yml
-
-  smoke_test:
-    docker:
-      - image: alpine:latest   
-    steps:
-      - run: apk add --update curl
-      - run:
-          name: smoke tests
-          command: |
-            URL="https://blog.udacity.com/"
-            if curl -s --head ${URL}
-            then
-             return 0
-            else
-             return 1
-            fi          
-            
-
+            aws cloudformation deploy \
+              --template-file template.yml \
+              --stack-name prod-${CIRCLE_WORKFLOW_ID}
 workflows:
   my_workflow:
     jobs:
-      - configure_infrastructure
-      - smoke_test:
-          requires:
-           - configure_infrastructure
+      - create_infrastructure
